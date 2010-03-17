@@ -1,0 +1,16 @@
+Ruby routines for manipulating Newick trees. See http://en.wikipedia.org/wiki/Newick_format for a description of what Newick trees are if you don't know, but chances are, if you don't already know, this isn't going to be very useful code to you.
+
+I'm aware that BioRuby has Newick routines as of late, although I'm not sure if they do all my code does, plus I started my code several years ago when BioRuby was just starting out. I'm all for anyone taking what they find useful from my code and integrating it into BioRuby, though.
+
+One of things I'm most proud of is my midpoint rooting method, as I have yet to see another command-line rerooting method that can take in arbitrary Newick trees. 
+
+I've created wrappers around most of the major functionality of my code, such as rerooting and drawing trees. The tree drawing routines (and its wrapper newickDraw) use the fpdf gem for rendering PDF files. Other than that, my code is stand alone.
+
+jgi_19094_1366.m000227-Phatr2.tree is an example Newick tree for playing with the routines.
+
+Let me know what you think:
+
+Jonathan Badger
+J. Craig Venter Institute
+jhbadger@gmail.com
+

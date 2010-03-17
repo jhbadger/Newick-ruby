@@ -1,0 +1,72 @@
+#!/usr/bin/env ruby
+
+require 'Newick'
+require 'optparse'
+require 'rubygems'
+require 'ostruct'
+require 'fpdf'
+
+opt = OpenStruct.new
+opt.brackets = false
+opt.label = false
+opt.highlights = nil
+opt.file = nil
+opt.raw = false
+
+ARGV.options {|o|
+  o.banner << " tree-file [..tree-file]"
+  o.on("-b ", "--opt.brackets ", String, 
+          "load list of label brackets") {|b| opt.brackets = b}
+  o.on("-h ", "--highlights ", String,
+	  "highlight these ids (commas)") {|h| opt.highlights = h} 
+  o.on("-f ", "--file ", String,
+	  "file with ids to highlight") {|f| opt.file = f} 
+  o.on("-l ", "--label ", String, "add label to tree pdf") {|l| opt.label = l}   
+  o.on("-r", "--raw", "draw tree with raw names (false)") {opt.raw = true}
+  begin
+    o.parse!
+  rescue
+    STDERR.puts $!.message
+    STDERR.puts o
+    exit(1)
+  end
+  if (ARGV.size < 1)
+    STDERR.puts o
+    exit(1)
+  end
+}
+
+
+highlights = Hash.new
+if (opt.highlights)
+  opt.highlights.split(",").each {|highlight|
+    highlights[highlight] = [255, 0, 0]
+  }
+elsif (opt.file)
+  File.new(opt.file).each {|line|
+    name, r, g, b = line.chomp.split(" ")
+    r, g, b = 255, 0, 0 if (r.nil?)
+    if (r == "red")
+      r, g, b = 255, 0, 0
+    elsif (r == "green")
+      r, g, b = 0, 255, 0
+    elsif (r == "blue")
+      r, g, b = 0, 0, 255
+    end
+    highlights[name] = [r.to_i, g.to_i, b.to_i]
+  }
+end
+
+brackets = []
+if (opt.brackets)
+  File.new(opt.brackets).each {|line|
+    x, y1, y2, opt.label, r, p = line.chomp.split(" ")
+    opt.brackets.push([x.to_f, y1.to_f, y2.to_f, opt.label, r, p])
+  }
+end
+
+ARGV.each {|arg|
+  tree = NewickTree.fromFile(arg)
+  tree.draw(arg + ".pdf", "width", linker = :giLink, opt.label, highlights,
+            brackets, opt.raw)
+}
