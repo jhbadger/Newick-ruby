@@ -44,16 +44,8 @@ if (opt.highlights)
   }
 elsif (opt.file)
   File.new(opt.file).each {|line|
-    name, r, g, b = line.chomp.split(" ")
-    r, g, b = 255, 0, 0 if (r.nil?)
-    if (r == "red")
-      r, g, b = 255, 0, 0
-    elsif (r == "green")
-      r, g, b = 0, 255, 0
-    elsif (r == "blue")
-      r, g, b = 0, 0, 255
-    end
-    highlights[name] = [r.to_i, g.to_i, b.to_i]
+    name, color = line.chomp.split(" ")
+    highlights[name] = color
   }
 end
 
