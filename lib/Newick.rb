@@ -473,12 +473,16 @@ class NewickTree
   end
 
   # returns a 2D hash of pairwise distances on tree
-  def distanceMatrix
+  def distanceMatrix(verbose = nil)
     dMatrix = Hash.new
+    num = (@root.taxa.size)**2
+    count = 0
     @root.taxa.each {|taxon1|
       dMatrix[taxon1] = Hash.new
       taxon1Node = @root.findNode(taxon1)
       @root.taxa.each {|taxon2|
+        count += 1
+        STDERR.printf("Processing %s %s (%d of %d)\n", taxon1, taxon2, count, num) if (verbose && count % 1000 == 0)
 	if (taxon1 == taxon2)
 	  dMatrix[taxon1][taxon2] = 0.0
 	else

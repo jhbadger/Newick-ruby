@@ -10,7 +10,7 @@ end
 file = ARGV.pop
 
 tree = NewickTree.fromFile(file)
-dMatrix = tree.distanceMatrix
+dMatrix = tree.distanceMatrix(true)
 
 printf("    %d\n", dMatrix.keys.size)
 dMatrix.keys.each {|key1|
