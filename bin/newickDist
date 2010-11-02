@@ -1,16 +1,33 @@
 #!/usr/bin/env ruby
 
 require 'Newick'
+require 'optparse'
+require 'ostruct'
 
-if (ARGV.size != 1)
-  STDERR.printf("usage: %s tree-file\n", $0)
-  exit(1)
-end
+opt = OpenStruct.new
+opt.verbose = false
+
+ARGV.options {|opts|
+  opts.banner << " tree-file"
+  opts.on("-v", "--verbose", "show progress") {|t| opt.verbose = t} 
+  begin
+    opts.parse!
+  rescue
+    STDERR.puts $!.message
+    STDERR.puts opts
+    exit(1)
+  end
+  if (ARGV.size < 1)
+    STDERR.puts opts
+    exit(1)
+  end
+}
+
 
 file = ARGV.pop
 
 tree = NewickTree.fromFile(file)
-dMatrix = tree.distanceMatrix(true)
+dMatrix = tree.distanceMatrix(opt.verbose)
 
 printf("    %d\n", dMatrix.keys.size)
 dMatrix.keys.each {|key1|
