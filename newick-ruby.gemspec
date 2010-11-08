@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = %q{newick-ruby}
-  s.version = "1.0.1"
-  s.date = %q{2010-08-02}
+  s.version = "1.0.2"
+  s.date = %q{2010-11-08}
   s.authors = ["Jonathan Badger"]
   s.email = %q{jhbadger@gmail.com}
   s.summary = %q{newick-ruby provides routines for parsing newick-format phylogenetic trees.}
