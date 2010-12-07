@@ -16,6 +16,7 @@ jhbadger@gmail.com
 
 UPDATES:
 1.0.2 -- faster distance matrix calculation
+1.0.3 -- fixed colors in highlights when drawing trees
 
 License
 (The MIT License)
