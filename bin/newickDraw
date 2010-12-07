@@ -40,11 +40,12 @@ ARGV.options {|o|
 highlights = Hash.new
 if (opt.highlights)
   opt.highlights.split(",").each {|highlight|
-    highlights[highlight] = [255, 0, 0]
+    highlights[highlight] = "red"
   }
 elsif (opt.file)
   File.new(opt.file).each {|line|
     name, color = line.chomp.split(" ")
+    color = "red" if color.nil?
     highlights[name] = color
   }
 end

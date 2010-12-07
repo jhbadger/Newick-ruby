@@ -735,7 +735,7 @@ class NewickTree
           yUnit = 0.25
           lineWidth = 0.01
         elsif (taxa.size < 150)
-          fontSize = 8
+          fontSize = 6
           yUnit = 0.197
           lineWidth = 0.01
         elsif (taxa.size < 300)
