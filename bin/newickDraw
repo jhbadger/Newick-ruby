@@ -12,6 +12,7 @@ opt.label = false
 opt.highlights = nil
 opt.file = nil
 opt.raw = false
+opt.good = 75
 
 ARGV.options {|o|
   o.banner << " tree-file [..tree-file]"
@@ -23,6 +24,7 @@ ARGV.options {|o|
 	  "file with ids to highlight") {|f| opt.file = f} 
   o.on("-l ", "--label ", String, "add label to tree pdf") {|l| opt.label = l}   
   o.on("-r", "--raw", "draw tree with raw names (false)") {opt.raw = true}
+  o.on("-g ", "--goodboot ", Float, "minimum level of a good bootstrap (default #{opt.good})") {|l| opt.good = l}
   begin
     o.parse!
   rescue
@@ -61,5 +63,5 @@ end
 ARGV.each {|arg|
   tree = NewickTree.fromFile(arg)
   tree.draw(arg + ".pdf", "width", linker = :giLink, opt.label, highlights,
-            brackets, opt.raw)
+            brackets, opt.raw, opt.good)
 }
