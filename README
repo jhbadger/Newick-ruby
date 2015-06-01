@@ -11,12 +11,13 @@ jgi_19094_1366.m000227-Phatr2.tree is an example Newick tree for playing with th
 Let me know what you think:
 
 Jonathan Badger
-J. Craig Venter Institute
+National Cancer Institute (NCI)
 jhbadger@gmail.com
 
 UPDATES:
 1.0.2 -- faster distance matrix calculation
 1.0.3 -- fixed colors in highlights when drawing trees
+1.0.4 -- allow choice of exact or inexact node matching
 
 License
 (The MIT License)

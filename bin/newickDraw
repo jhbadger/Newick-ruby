@@ -14,6 +14,18 @@ opt.file = nil
 opt.raw = false
 opt.good = 75
 
+# add string->integer method for array access, as fpdf 1.53 fails without it on ruby 1.9 and higher
+
+class Array
+  def [](key)
+    if key.kind_of?(String)
+      self.at(key.to_i)
+    else
+      self.at(key)
+    end
+  end
+end
+
 ARGV.options {|o|
   o.banner << " tree-file [..tree-file]"
   o.on("-b ", "--opt.brackets ", String, 

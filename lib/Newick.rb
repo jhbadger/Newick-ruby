@@ -163,13 +163,13 @@ class NewickNode
   end
 
   # returns node with given name, or nil if not found
-  def findNode(name)
+  def findNode(name, exact=false)
     found = nil
-    if (@name =~/#{name}/)
+    if (exact && @name==name) || (!exact && @name =~/#{name}/)
       found = self
     else
       @children.each do |child|
-        found = child.findNode(name)
+        found = child.findNode(name, exact)
         break if found
       end
     end
@@ -524,9 +524,9 @@ class NewickTree
     return diff1, diff2
   end
 
-  # return node with the given name
-  def findNode(name)
-    return @root.findNode(name)
+  # return node with the given name, exactly if second argument true
+  def findNode(name, exact=false)
+    return @root.findNode(name, exact)
   end
 
   # unroot the tree

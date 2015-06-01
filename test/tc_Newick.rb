@@ -27,4 +27,10 @@ class TestNewickTree < Test::Unit::TestCase
     tree = NewickTree.new("(A:0.65,(B:0.1,C:0.2)90:0.5);")
     assert_equal(tree.taxa, ["A","B","C"])
   end
+  def test_findNode
+    tree = NewickTree.new("(A12,(A13,A2));")
+    assert_equal(tree.findNode("A1", false).name, "A12")
+    assert_equal(tree.findNode("A1", true), nil)
+    assert_equal(tree.findNode("A13", true).name, "A13")
+  end
 end
